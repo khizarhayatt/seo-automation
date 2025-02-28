@@ -9,3 +9,4 @@
 /uploads
 /application/vendor
 /application/config/app-config.php
+/application/config/app-sample-config.php
