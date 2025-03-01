@@ -21,6 +21,16 @@ class Cron extends App_Controller
             $this->cron_model->run();
         }
 
-        log_message('info', "Cron executed successfully at " . date('Y-m-d H:i:s'));
+        
+    }
+
+    public function seo($key = '')
+    {
+        if (defined('APP_CRON_KEY') && (APP_CRON_KEY != $key)) {
+            header('HTTP/1.0 401 Unauthorized');
+            die('Passed cron job key is not correct. The cron job key should be the same like the one defined in APP_CRON_KEY constant.');
+        }
+ 
+        log_message('error', "Cron executed successfully at " . date('Y-m-d H:i:s'));
     }
 }
