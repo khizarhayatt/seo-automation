@@ -69,7 +69,7 @@ class Cron_model extends App_Model
             }
 
               // Call the new cron job function for testing
-            $this->log_execution_time();
+            
 
             $this->staff_reminders();
             $this->events();
@@ -1966,5 +1966,6 @@ class Cron_model extends App_Model
     {
         $current_time = date('Y-m-d H:i:s');
         log_message('info', "Cron executed at: $current_time");
+        echo $current_time;
     }
 }

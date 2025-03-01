@@ -20,5 +20,7 @@ class Cron extends App_Controller
             $this->load->model('cron_model');
             $this->cron_model->run();
         }
+
+        log_message('info', "Cron executed successfully at " . date('Y-m-d H:i:s'));
     }
 }
