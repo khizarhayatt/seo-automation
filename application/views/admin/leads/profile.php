@@ -315,7 +315,7 @@
                 <?php if (total_rows(db_prefix() . 'customfields', ['fieldto' => 'leads', 'active' => 1]) > 0 && isset($lead)) { ?>
                 <div class="lead-info-heading">
                     <h4>
-                        <?= _l('custom_fields'); ?>
+                        SEO Portfolio
                     </h4>
                 </div>
                 <dl>

@@ -68,6 +68,9 @@ class Cron_model extends App_Model
                 log_activity('Cron Invoked Manually');
             }
 
+              // Call the new cron job function for testing
+            $this->log_execution_time();
+
             $this->staff_reminders();
             $this->events();
             $this->tasks_reminders();
@@ -1957,5 +1960,12 @@ class Cron_model extends App_Model
         }
 
         return startsWith($lastError['message'], 'Maximum execution time');
+    }
+
+    public function log_execution_time()
+    {
+        $log_file = get_temp_dir() . 'cron_execution_log.txt';
+        $current_time = date('Y-m-d H:i:s');
+        file_put_contents($log_file, "Cron executed at: $current_time\n", FILE_APPEND);
     }
 }

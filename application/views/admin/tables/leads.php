@@ -196,26 +196,26 @@ return App_table::find('leads')
 
             $row[] = ($aRow['email'] != '' ? '<a href="mailto:' . e($aRow['email']) . '">' . e($aRow['email']) . '</a>' : '');
 
-            $row[] = ($aRow['phonenumber'] != '' ? '<a href="tel:' . e($aRow['phonenumber']) . '">' . e($aRow['phonenumber']) . '</a>' : '');
+            // $row[] = ($aRow['phonenumber'] != '' ? '<a href="tel:' . e($aRow['phonenumber']) . '">' . e($aRow['phonenumber']) . '</a>' : '');
 
-            $base_currency = get_base_currency();
-            $row[]         = '<span class="tw-font-medium">' . e(($aRow['lead_value'] != 0 ? app_format_money($aRow['lead_value'], $base_currency->id) : '')) . '</span>';
+            // $base_currency = get_base_currency();
+            // $row[]         = '<span class="tw-font-medium">' . e(($aRow['lead_value'] != 0 ? app_format_money($aRow['lead_value'], $base_currency->id) : '')) . '</span>';
 
             $row[] .= render_tags($aRow['tags']);
 
-            $assignedOutput = '';
-            if ($aRow['assigned'] != 0) {
-                $full_name = e($aRow['assigned_firstname'] . ' ' . $aRow['assigned_lastname']);
+            // $assignedOutput = '';
+            // if ($aRow['assigned'] != 0) {
+            //     $full_name = e($aRow['assigned_firstname'] . ' ' . $aRow['assigned_lastname']);
 
-                $assignedOutput = '<a data-toggle="tooltip" data-title="' . $full_name . '" href="' . admin_url('profile/' . $aRow['assigned']) . '">' . staff_profile_image($aRow['assigned'], [
-                    'staff-profile-image-small',
-                ]) . '</a>';
+            //     $assignedOutput = '<a data-toggle="tooltip" data-title="' . $full_name . '" href="' . admin_url('profile/' . $aRow['assigned']) . '">' . staff_profile_image($aRow['assigned'], [
+            //         'staff-profile-image-small',
+            //     ]) . '</a>';
 
-                // For exporting
-                $assignedOutput .= '<span class="hide">' . $full_name . '</span>';
-            }
+            //     // For exporting
+            //     $assignedOutput .= '<span class="hide">' . $full_name . '</span>';
+            // }
 
-            $row[] = $assignedOutput;
+            // $row[] = $assignedOutput;
 
             $outputStatus = '';
 
@@ -255,7 +255,7 @@ return App_table::find('leads')
 
             $row[] = e($aRow['source_name']);
 
-            $row[] = ($aRow['lastcontact'] == '0000-00-00 00:00:00' || ! is_date($aRow['lastcontact']) ? '' : '<span data-toggle="tooltip" data-title="' . e(_dt($aRow['lastcontact'])) . '" class="text-has-action is-date">' . e(time_ago($aRow['lastcontact'])) . '</span>');
+            // $row[] = ($aRow['lastcontact'] == '0000-00-00 00:00:00' || ! is_date($aRow['lastcontact']) ? '' : '<span data-toggle="tooltip" data-title="' . e(_dt($aRow['lastcontact'])) . '" class="text-has-action is-date">' . e(time_ago($aRow['lastcontact'])) . '</span>');
 
             $row[] = '<span data-toggle="tooltip" data-title="' . e(_dt($aRow['dateadded'])) . '" class="text-has-action is-date">' . e(time_ago($aRow['dateadded'])) . '</span>';
 

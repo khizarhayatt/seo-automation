@@ -209,10 +209,10 @@
                                         'name'     => _l('the_number_sign'),
                                         'th_attrs' => ['class' => 'toggleable', 'id' => 'th-number'],
                                     ],
-                                    [
-                                        'name'     => _l('leads_dt_name'),
-                                        'th_attrs' => ['class' => 'toggleable', 'id' => 'th-name'],
-                                    ],
+                                    // [
+                                    //     'name'     => _l('leads_dt_name'),
+                                    //     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-name'],
+                                    // ],
                                 ];
                                 if (is_gdpr() && get_option('gdpr_enable_consent_for_leads') == '1') {
                                     $_table_data[] = [
@@ -232,18 +232,18 @@
                                     'name'     => _l('leads_dt_phonenumber'),
                                     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-phone'],
                                 ];
-                                $_table_data[] = [
-                                    'name'     => _l('leads_dt_lead_value'),
-                                    'th_attrs' => ['class' => 'toggleable', 'id' => 'th-lead-value'],
-                                ];
+                                // $_table_data[] = [
+                                //     'name'     => _l('leads_dt_lead_value'),
+                                //     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-lead-value'],
+                                // ];
                                 $_table_data[] = [
                                     'name'     => _l('tags'),
                                     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-tags'],
                                 ];
-                                $_table_data[] = [
-                                    'name'     => _l('leads_dt_assigned'),
-                                    'th_attrs' => ['class' => 'toggleable', 'id' => 'th-assigned'],
-                                ];
+                                // $_table_data[] = [
+                                //     'name'     => _l('leads_dt_assigned'),
+                                //     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-assigned'],
+                                // ];
                                 $_table_data[] = [
                                     'name'     => _l('leads_dt_status'),
                                     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-status'],
@@ -252,10 +252,10 @@
                                     'name'     => _l('leads_source'),
                                     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-source'],
                                 ];
-                                $_table_data[] = [
-                                    'name'     => _l('leads_dt_last_contact'),
-                                    'th_attrs' => ['class' => 'toggleable', 'id' => 'th-last-contact'],
-                                ];
+                                // $_table_data[] = [
+                                //     'name'     => _l('leads_dt_last_contact'),
+                                //     'th_attrs' => ['class' => 'toggleable', 'id' => 'th-last-contact'],
+                                // ];
                                 $_table_data[] = [
                                     'name'     => _l('leads_dt_datecreated'),
                                     'th_attrs' => ['class' => 'date-created toggleable', 'id' => 'th-date-created'],
