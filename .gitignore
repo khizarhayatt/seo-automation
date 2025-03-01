@@ -9,4 +9,4 @@
 /application/logs
 /uploads
 /application/vendor
-/application/config/
+/application/config
