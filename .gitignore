@@ -6,6 +6,7 @@
 /media
 /resources
 /temp
+/application/logs
 /uploads
 /application/vendor
 /application/config/
