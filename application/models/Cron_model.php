@@ -1964,8 +1964,7 @@ class Cron_model extends App_Model
 
     public function log_execution_time()
     {
-        $log_file = get_temp_dir() . 'cron_execution_log.txt';
         $current_time = date('Y-m-d H:i:s');
-        file_put_contents($log_file, "Cron executed at: $current_time\n", FILE_APPEND);
+        log_message('info', "Cron executed at: $current_time");
     }
 }
