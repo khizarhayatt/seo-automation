@@ -120,8 +120,9 @@ class Cron extends App_Controller
      * @param string $seoData The SEO data to be analyzed (e.g., webpage content, meta tags, backlinks info).
      * @return string JSON encoded report with the analysis or error message.
      */
-    function generateSEOReport($apiKey=GPT_API_KEY, $seoData) {
+    function generateSEOReport() {
         $url = 'https://api.openai.com/v1/chat/completions';
+        $report_url="https://goldfisher.org/";
         
         // Construct the prompt to instruct ChatGPT to produce a JSON structured SEO report.
         $prompt = "Perform a comprehensive SEO analysis on the provided data. Analyze both on-page SEO factors (e.g., keyword usage, meta tags, content quality, internal linking, site speed) and off-page SEO factors (e.g., backlink profile, domain authority, competitor benchmarking). Provide your analysis in a JSON format with the following structure:
@@ -138,12 +139,12 @@ class Cron extends App_Controller
     },
     \"recommendations\": \"...\"
     }
-    The provided data is: $seoData";
+    The provided data is: $report_url";
         
         // Set up the request headers.
         $headers = [
             'Content-Type: application/json',
-            'Authorization: Bearer ' . $apiKey
+            'Authorization: Bearer ' . GPT_API_KEY
         ];
         
         // Prepare the payload with a system message and the SEO analysis prompt.
