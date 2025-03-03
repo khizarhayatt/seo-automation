@@ -101,15 +101,16 @@ class Cron extends App_Controller
             ? $lighthouse['audits']['total-blocking-time']['displayValue'] 
             : 'N/A';
         
-        // Output the minimal report
-        echo "Minimal Report\n";
-        echo "--------------\n";
-        echo "URL: " . $finalUrl . "\n";
-        echo "Performance Score: " . $performanceScore . "\n";
-        echo "First Contentful Paint: " . $fcp . "\n";
-        echo "Speed Index: " . $speedIndex . "\n";
-        echo "Largest Contentful Paint: " . $lcp . "\n";
-        echo "Total Blocking Time: " . $tbt . "\n";
+         // Output the minimal report
+        echo "Minimal Report<br>";
+        echo "--------------<br>";
+        echo "URL: " . $finalUrl . "<br>";
+        echo "Performance Score: " . $performanceScore . "<br>";
+        echo "First Contentful Paint: " . $fcp . "<br>";
+        echo "Speed Index: " . $speedIndex . "<br>";
+        echo "Largest Contentful Paint: " . $lcp . "<br>";
+        echo "Total Blocking Time: " . $tbt . "<br>";
+
     }
 
 }
