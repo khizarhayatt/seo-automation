@@ -112,5 +112,90 @@ class Cron extends App_Controller
         echo "Total Blocking Time: " . $tbt . "<br>";
 
     }
+ 
+    /**
+     * Generates a comprehensive SEO analysis report in JSON format using the ChatGPT API.
+     *
+     * @param string $apiKey Your OpenAI API key.
+     * @param string $seoData The SEO data to be analyzed (e.g., webpage content, meta tags, backlinks info).
+     * @return string JSON encoded report with the analysis or error message.
+     */
+    function generateSEOReport(GPT_API_KEY, $seoData) {
+        $url = 'https://api.openai.com/v1/chat/completions';
+        
+        // Construct the prompt to instruct ChatGPT to produce a JSON structured SEO report.
+        $prompt = "Perform a comprehensive SEO analysis on the provided data. Analyze both on-page SEO factors (e.g., keyword usage, meta tags, content quality, internal linking, site speed) and off-page SEO factors (e.g., backlink profile, domain authority, competitor benchmarking). Provide your analysis in a JSON format with the following structure:
+    {
+    \"on_page\": {
+        \"keyword_analysis\": \"...\",
+        \"meta_tags\": \"...\",
+        \"content_structure\": \"...\"
+    },
+    \"off_page\": {
+        \"backlink_quality\": \"...\",
+        \"referral_traffic\": \"...\",
+        \"competitor_analysis\": \"...\"
+    },
+    \"recommendations\": \"...\"
+    }
+    The provided data is: $seoData";
+        
+        // Set up the request headers.
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey
+        ];
+        
+        // Prepare the payload with a system message and the SEO analysis prompt.
+        $payload = [
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                [ 'role' => 'system', 'content' => 'You are an SEO expert.' ],
+                [ 'role' => 'user', 'content' => $prompt ]
+            ]
+        ];
+        
+        // Initialize cURL.
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        
+        // Execute the cURL request.
+        $response = curl_exec($ch);
+        
+        // Check for cURL errors.
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+            curl_close($ch);
+            return json_encode(['error' => 'cURL error: ' . $error_msg], JSON_PRETTY_PRINT);
+        }
+        
+        curl_close($ch);
+        
+        // Decode the API response.
+        $result = json_decode($response, true);
+        if (isset($result['choices'][0]['message']['content'])) {
+            $reportText = $result['choices'][0]['message']['content'];
+            
+            // Attempt to decode the report text as JSON.
+            $jsonReport = json_decode($reportText, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                // Successfully parsed JSON; return the pretty-printed JSON report.
+                return json_encode($jsonReport, JSON_PRETTY_PRINT);
+            } else {
+                // If the output is not valid JSON, return an error along with the raw report.
+                return json_encode([
+                    'error' => 'API response is not valid JSON.',
+                    'raw_report' => $reportText
+                ], JSON_PRETTY_PRINT);
+            }
+        }
+        
+        return json_encode(['error' => 'No valid response received from API.'], JSON_PRETTY_PRINT);
+    }
+
+
 
 }
