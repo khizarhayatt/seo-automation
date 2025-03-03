@@ -122,34 +122,28 @@ class Cron extends App_Controller
      * @param string $seoData The SEO data to be analyzed (e.g., webpage content, meta tags, backlinks info).
      * @return string JSON encoded report with the analysis or error message.
      */
-    function generateSEOReport() {
+    function generateSEOReport() { 
         $url = 'https://api.openai.com/v1/chat/completions';
-        $report_url="https://goldfisher.org/";
-        
-        // Construct the prompt to instruct ChatGPT to produce a JSON structured SEO report.
-        $prompt = "Perform a comprehensive SEO analysis on the provided data. Analyze both on-page SEO factors (e.g., keyword usage, meta tags, content quality, internal linking, site speed) and off-page SEO factors (e.g., backlink profile, domain authority, competitor benchmarking). Provide your analysis in a JSON format with the following structure:
+        $report_url = "https://goldfisher.org/";
+    
+        // Construct a simplified prompt for a basic SEO analysis.
+        $prompt = "Perform a basic SEO analysis on the provided website URL. Provide your analysis in JSON format with the following structure:
     {
-    \"on_page\": {
-        \"keyword_analysis\": \"...\",
+        \"keywords\": \"...\",
         \"meta_tags\": \"...\",
-        \"content_structure\": \"...\"
-    },
-    \"off_page\": {
-        \"backlink_quality\": \"...\",
-        \"referral_traffic\": \"...\",
-        \"competitor_analysis\": \"...\"
-    },
-    \"recommendations\": \"...\"
+        \"content_quality\": \"...\",
+        \"backlinks\": \"...\",
+        \"recommendations\": \"...\"
     }
-    The provided data is: $report_url";
-        
+    The website to analyze is: $report_url";
+    
         // Set up the request headers.
         $headers = [
             'Content-Type: application/json',
             'Authorization: Bearer ' . GPT_API_KEY
         ];
-        
-        // Prepare the payload with a system message and the SEO analysis prompt.
+    
+        // Prepare the payload with a system message and the basic SEO analysis prompt.
         $payload = [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
@@ -157,17 +151,18 @@ class Cron extends App_Controller
                 [ 'role' => 'user', 'content' => $prompt ]
             ]
         ];
-        
+    
         // Initialize cURL.
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-        
+        curl_setopt($ch, CURLOPT_TIMEOUT, 300); // Set a timeout for the request
+    
         // Execute the cURL request.
         $response = curl_exec($ch);
-        
+    
         // Check for cURL errors.
         if (curl_errno($ch)) {
             $error_msg = curl_error($ch);
@@ -198,6 +193,7 @@ class Cron extends App_Controller
         
         return json_encode(['error' => 'No valid response received from API.'], JSON_PRETTY_PRINT);
     }
+    
 
 
 
