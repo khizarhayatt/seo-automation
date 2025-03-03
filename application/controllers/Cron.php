@@ -30,8 +30,8 @@ class Cron extends App_Controller
             header('HTTP/1.0 401 Unauthorized');
             die('Passed cron job key is not correct. The cron job key should be the same like the one defined in APP_CRON_KEY constant.');
         }
- 
-        log_message('error', "Cron executed successfully at " . date('Y-m-d H:i:s'));
+        $firstLead = get_first_created_lead(); 
+        log_message('error', "Cron executed successfully at ". $firstLead->email.'-'.date('Y-m-d H:i:s'));
     }
  
     public function generate_report($url ="https://myndis.com.au", $category = 'performance', $strategy = 'desktop', $locale = 'en') {
@@ -192,8 +192,5 @@ class Cron extends App_Controller
         
         return json_encode(['error' => 'No valid response received from API.'], JSON_PRETTY_PRINT);
     }
-    
-
-
-
+     
 }

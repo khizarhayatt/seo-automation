@@ -232,3 +232,18 @@ function load_lead_language($lead_id)
 
     return true;
 }
+
+function get_first_created_lead() {
+    $CI =& get_instance();
+    // Sort by 'dateadded' in ascending order to get the earliest lead first
+    $CI->db->order_by('dateadded', 'ASC');
+    $CI->db->limit(1);
+    // Filter leads with status equal to "create"
+    $CI->db->where('status', 1);
+    $query = $CI->db->get(db_prefix() . 'leads');
+    
+    if ($query->num_rows() > 0) {
+        return $query->row();
+    }
+    return null;
+}
