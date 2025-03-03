@@ -10,3 +10,4 @@
 /uploads
 /application/vendor/
 /application/config/
+.env
