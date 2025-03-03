@@ -1,6 +1,8 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 class Cron extends App_Controller
 {
