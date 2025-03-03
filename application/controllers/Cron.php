@@ -50,7 +50,7 @@ class Cron extends App_Controller
         // Set cURL options
         curl_setopt($ch, CURLOPT_URL, $requestUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 25);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 35);
         
         // Execute the request
         $response = curl_exec($ch);
