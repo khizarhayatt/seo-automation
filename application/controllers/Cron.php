@@ -120,7 +120,7 @@ class Cron extends App_Controller
      * @param string $seoData The SEO data to be analyzed (e.g., webpage content, meta tags, backlinks info).
      * @return string JSON encoded report with the analysis or error message.
      */
-    function generateSEOReport(GPT_API_KEY, $seoData) {
+    function generateSEOReport($apiKey=GPT_API_KEY, $seoData) {
         $url = 'https://api.openai.com/v1/chat/completions';
         
         // Construct the prompt to instruct ChatGPT to produce a JSON structured SEO report.
