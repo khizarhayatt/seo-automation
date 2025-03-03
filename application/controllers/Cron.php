@@ -1,8 +1,6 @@
 <?php
 
-defined('BASEPATH') or exit('No direct script access allowed');
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+defined('BASEPATH') or exit('No direct script access allowed'); 
 
 class Cron extends App_Controller
 {
@@ -52,6 +50,7 @@ class Cron extends App_Controller
         // Set cURL options
         curl_setopt($ch, CURLOPT_URL, $requestUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         
         // Execute the request
         $response = curl_exec($ch);
