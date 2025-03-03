@@ -66,4 +66,50 @@ class Cron extends App_Controller
         return json_decode($response, true);
     } 
 
+    public function generate_minimum_report($url = "https://myndis.com.au", $category = 'performance', $strategy = 'desktop', $locale = 'en') {
+        // Get the full API response
+        $data = $this->generate_report($url, $category, $strategy, $locale);
+        
+        // Check if the response is valid
+        if (!$data || !isset($data['lighthouseResult'])) {
+            echo "Error: No valid data returned from API.";
+            return;
+        }
+        
+        // Extract the lighthouse result
+        $lighthouse = $data['lighthouseResult'];
+        
+        // Get the final tested URL
+        $finalUrl = isset($lighthouse['finalUrl']) ? $lighthouse['finalUrl'] : $url;
+        
+        // Extract the overall performance score (multiplied by 100 for percentage)
+        $performanceScore = isset($lighthouse['categories']['performance']['score']) 
+            ? $lighthouse['categories']['performance']['score'] * 100 
+            : 'N/A';
+        
+        // Retrieve some key audit metrics
+        $fcp       = isset($lighthouse['audits']['first-contentful-paint']['displayValue']) 
+            ? $lighthouse['audits']['first-contentful-paint']['displayValue'] 
+            : 'N/A';
+        $speedIndex= isset($lighthouse['audits']['speed-index']['displayValue']) 
+            ? $lighthouse['audits']['speed-index']['displayValue'] 
+            : 'N/A';
+        $lcp       = isset($lighthouse['audits']['largest-contentful-paint']['displayValue']) 
+            ? $lighthouse['audits']['largest-contentful-paint']['displayValue'] 
+            : 'N/A';
+        $tbt       = isset($lighthouse['audits']['total-blocking-time']['displayValue']) 
+            ? $lighthouse['audits']['total-blocking-time']['displayValue'] 
+            : 'N/A';
+        
+        // Output the minimal report
+        echo "Minimal Report\n";
+        echo "--------------\n";
+        echo "URL: " . $finalUrl . "\n";
+        echo "Performance Score: " . $performanceScore . "\n";
+        echo "First Contentful Paint: " . $fcp . "\n";
+        echo "Speed Index: " . $speedIndex . "\n";
+        echo "Largest Contentful Paint: " . $lcp . "\n";
+        echo "Total Blocking Time: " . $tbt . "\n";
+    }
+
 }
